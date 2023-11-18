@@ -25,4 +25,4 @@ export default async function bootstrap(nestPort?: number, logger = true) {
 /* istanbul ignore next */
 if (require.main === module)
 /* istanbul ignore next */
-    bootstrap(3000);
+    void bootstrap(3000);
