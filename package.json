@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
+    "deploy": "docker build . -t cr.yandex/crpsnbgl1eddle2796pa/backend && docker push cr.yandex/crpsnbgl1eddle2796pa/backend",
     "build": "nest build",
     "start": "nest start --watch",
     "start:debug": "nest start --debug --watch",

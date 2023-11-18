@@ -13,6 +13,11 @@ RUN npm  install --omit=dev
 
 FROM node:lts-alpine As production
 
+RUN mkdir -p ./.postgresql
+RUN wget "https://storage.yandexcloud.net/cloud-certs/CA.pem" \
+    --output-document ./.postgresql/root.crt
+RUN chmod 0600 ./.postgresql/root.crt
+
 COPY --from=build /usr/app/node_modules ./node_modules
 COPY --from=build /usr/app/dist ./dist
 COPY --from=build /usr/app/package.json ./

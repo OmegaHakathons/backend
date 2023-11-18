@@ -2,6 +2,7 @@ import { NestApplicationOptions, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import 'dotenv/config';
 
 export default async function bootstrap(nestPort?: number, logger = true) {
     const options: NestApplicationOptions = {};
@@ -17,6 +18,7 @@ export default async function bootstrap(nestPort?: number, logger = true) {
 
     if (process.env.CORS === "1") app.enableCors({origin: true});
     await app.listen(nestPort as number);
+    console.log("Listening at port " + nestPort);
     return app;
 }
 
@@ -25,4 +27,4 @@ export default async function bootstrap(nestPort?: number, logger = true) {
 /* istanbul ignore next */
 if (require.main === module)
 /* istanbul ignore next */
-    void bootstrap(3000);
+    void bootstrap(parseInt(process.env.PORT as string));
