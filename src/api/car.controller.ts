@@ -1,6 +1,6 @@
-import { Body, Controller, Post, Get, Param, Delete} from '@nestjs/common';
-import { TaskDTO } from 'src/services/task.dto';
+import { Body, Controller, Post, Get, Param, Delete, Put} from '@nestjs/common';
 import { CarService } from 'src/services/car.service';
+import { CarDTO } from 'src/services/car.dto';
 
 @Controller("car")
 export class CarController {
@@ -9,7 +9,7 @@ export class CarController {
     ) {}
 
     @Post()
-    async add(@Body() dto: TaskDTO) {
+    async add(@Body() dto: CarDTO) {
         return this.service.add(dto);
     }
 
@@ -21,6 +21,11 @@ export class CarController {
     @Get(":id")
     async get(@Param("id") id: number){
         return this.service.getOne(id);
+    }
+    
+    @Put(":id")
+    async update(@Param("id") id: number, @Body() dto: CarDTO) {
+        return this.service.update(id, dto);
     }
 
     @Delete(":id")

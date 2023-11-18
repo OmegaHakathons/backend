@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { JwtService } from '@nestjs/jwt';
-import Task from 'src/entity/Task';
-import { TaskDTO } from './task.dto';
+import Car from 'src/entity/Car';
+import { CarDTO } from './car.dto';
 
 @Injectable()
 export class CarService {
     constructor(
-        @InjectRepository(Task) private readonly repo: Repository<Task>,
+        @InjectRepository(Car) private readonly repo: Repository<Car>,
         private jwtService: JwtService
     ) {}
 
@@ -24,7 +24,7 @@ export class CarService {
         return this.repo.findOneBy({id});
     }
 
-    async add(dto: TaskDTO) {
+    async add(dto: CarDTO) {
         return this.repo.insert(dto);
     }
 
@@ -32,7 +32,7 @@ export class CarService {
         return this.repo.delete({id});
     }
 
-    async update(id: number, dto: TaskDTO) {
+    async update(id: number, dto: CarDTO) {
         return this.repo.update({id}, dto);
     }
 }
