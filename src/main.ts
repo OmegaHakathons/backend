@@ -10,7 +10,7 @@ export default async function bootstrap(nestPort?: number, logger = true) {
     const app = await NestFactory.create(AppModule, options);
     app.useGlobalPipes(new ValidationPipe({whitelist: true}));
 
-    const config = new DocumentBuilder().build();
+    const config = new DocumentBuilder().addBearerAuth().build();
     const document = SwaggerModule.createDocument(app, config, {
         deepScanRoutes: true,
     });

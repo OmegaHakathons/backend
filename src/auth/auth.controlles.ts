@@ -1,8 +1,9 @@
 import { Body, Controller, Post, UseGuards, Get, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { NFCTokenDTO, PasswordDTO } from './auth.dto';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Авторизация")
 @Controller("auth")
 export class AuthController {
     constructor(
