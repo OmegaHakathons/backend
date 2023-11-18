@@ -18,10 +18,7 @@
     "test:watch": "jest --watch --config jest.config.ts --",
     "test:cov": "jest --coverage --config jest.config.ts --",
     "test:muts": "stryker run",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "migration:create": "typeorm migration:create -d src/migrations -n",
-    "migration:generate": "typeorm migration:generate -d src/AppDataSource.ts -n",
-    "migration:run": "typeorm migration:run"
+    "typeorm:generate": "ts-node ./node_modules/typeorm/cli -d ./src/dataSource.ts migration:generate ./src/migrations/migration"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.9",

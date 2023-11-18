@@ -3,6 +3,7 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 import migationList from "./migrations/_migrations";
 import entityList from "./entity/_entities";
 import { readFileSync } from "fs";
+import "dotenv/config";
 
 export const getDS = (dbName?: string) => {
     const options: PostgresConnectionOptions = {
@@ -27,3 +28,5 @@ export const getDS = (dbName?: string) => {
 
     return { options, ds: new DataSource(options) };
 };
+
+export default getDS().ds;
