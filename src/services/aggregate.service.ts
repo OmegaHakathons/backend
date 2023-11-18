@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import Car from 'src/entity/Car';
 import { CarDTO } from './car.dto';
+import Aggregate from 'src/entity/Aggregate';
 
 @Injectable()
-export class CarService {
+export class AggregateService {
     constructor(
-        @InjectRepository(Car) private readonly repo: Repository<Car>,
+        @InjectRepository(Aggregate) private readonly repo: Repository<Aggregate>,
     ) {}
 
     async getMany() {

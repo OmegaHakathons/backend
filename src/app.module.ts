@@ -15,6 +15,10 @@ import { CarService } from './services/car.service';
 import { TaskService } from './services/task.service';
 import { CarController } from './api/car.controller';
 import { TaskController } from './api/task.controller';
+import { AggregateController } from './api/aggregate.controller';
+import { AggregateService } from './services/aggregate.service';
+import { UserDataController } from './api/userData.controller';
+import { UserDataService } from './services/userData.service';
 
 export const moduleMetadata = (): Parameters<typeof Module>[0] => {
     return {
@@ -22,16 +26,20 @@ export const moduleMetadata = (): Parameters<typeof Module>[0] => {
             AuthController,
             CarController,
             TaskController,
+            AggregateController,
+            UserDataController,
         ],
         providers: [
-            AuthService,
-            CarService,
-            TaskService,
             JwtStrategy,
             {
                 provide: APP_GUARD,
                 useClass: JwtAuthGuard,
             },
+            AuthService,
+            CarService,
+            TaskService,
+            AggregateService,
+            UserDataService,
         ],
         imports: [
             InitialDatabaseCreator,

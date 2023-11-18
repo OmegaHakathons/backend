@@ -1,13 +1,13 @@
 import { Body, Controller, Post, Get, Param, Delete, Put} from '@nestjs/common';
-import { CarService } from 'src/services/car.service';
 import { CarDTO } from 'src/services/car.dto';
+import { AggregateService } from 'src/services/aggregate.service';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Машины')
-@Controller("car")
-export class CarController {
+@ApiTags('Агрегаты') 
+@Controller("aggregate")
+export class AggregateController {
     constructor(
-        private readonly service: CarService
+        private readonly service: AggregateService
     ) {}
 
     @Post()

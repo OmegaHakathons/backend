@@ -1,24 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import Car from 'src/entity/Car';
-import { CarDTO } from './car.dto';
+import { TaskDTO } from './task.dto';
+import UserData from 'src/entity/UserData';
 
 @Injectable()
-export class CarService {
+export class UserDataService {
     constructor(
-        @InjectRepository(Car) private readonly repo: Repository<Car>,
+        @InjectRepository(UserData) private readonly repo: Repository<UserData>,
     ) {}
 
     async getMany() {
-        return this.repo.find();
+        return this.repo.find({});
     }
 
     async getOne(id: number) {
         return this.repo.findOneBy({id});
     }
 
-    async add(dto: CarDTO) {
+    async getOneByUsername(username: string) {
+        return this.repo.findOneBy({username});
+    }
+
+    async add(dto: TaskDTO) {
         return this.repo.insert(dto);
     }
 
@@ -26,7 +30,7 @@ export class CarService {
         return this.repo.delete({id});
     }
 
-    async update(id: number, dto: CarDTO) {
+    async update(id: number, dto: TaskDTO) {
         return this.repo.update({id}, dto);
     }
 }

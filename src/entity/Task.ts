@@ -2,6 +2,7 @@ import { Entity, Column, OneToMany, JoinTable, ManyToOne, PrimaryColumn } from "
 import Car from "./Car";
 import Step from "./Step";
 import Aggregate from "./Aggregate";
+import UserData from "./UserData";
 
 type TypeTask = string;
 type StatusTask = string;
@@ -21,6 +22,8 @@ export default class Task {
     public currentStep?: number;
     @ManyToOne(() => Car)
     public car: Car;
+    @ManyToOne(() => UserData)
+    public executor: UserData;
     @ManyToOne(() => Aggregate)
     public aggregate: Aggregate;
     @Column()

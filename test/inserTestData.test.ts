@@ -23,24 +23,27 @@ describe('(e2e)', () => {
         await app.init();
     });
 
-    const handler = async <T extends ObjectLiteral>(type: EntityClassOrSchema, data: () =>  T) => {
-        for (let i = 0; i < 10; i++) {
-            const repo: Repository<T> = module.get(getRepositoryToken(type));
-            await repo.insert(data());
-        }
+    const handler = async <T extends ObjectLiteral>(type: EntityClassOrSchema, number: number, getOne: () =>  T) => {
+        const repo: Repository<T> = module.get(getRepositoryToken(type));
+        const data = Array(10).fill(0).map(getOne);
+        await Promise.all(data.map(x => repo.insert(x)));
+        return data;
     };
 
     it("insert test data", async () => {
-        await handler<Car>(Car, () => ({
+        const cars = await handler<Car>(Car, 10, () => ({
             id: randomInt(100000),
             name: `${faker.music.genre()} ${faker.commerce.productName()} ${faker.string.alphanumeric(2).toUpperCase()}`,
             number: `${faker.string.alphanumeric(6)} ${faker.string.alphanumeric(2)}`.toUpperCase()
         }));
-        await handler<Aggregate>(Aggregate, () => ({
+        const aggregates = await handler<Aggregate>(Aggregate, 10, () => ({
             id: randomInt(100000),
             name: `${faker.animal.cat()} ${faker.string.alphanumeric(2).toUpperCase()}`,
             number: `${faker.string.alphanumeric(4)}`.toUpperCase()
         }));
+
+
+
         expect(1).toBe(1);
     });
 });

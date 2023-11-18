@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { JwtService } from '@nestjs/jwt';
 import Task from 'src/entity/Task';
 import { TaskDTO } from './task.dto';
 
@@ -9,15 +8,10 @@ import { TaskDTO } from './task.dto';
 export class TaskService {
     constructor(
         @InjectRepository(Task) private readonly repo: Repository<Task>,
-        private jwtService: JwtService
     ) {}
 
-    private (userName: string): string {
-        return this.jwtService.sign({ user: userName });
-    }
-
     async getMany() {
-        return this.repo.find();
+        return this.repo.find({relations: ["steps", "car", "aggregate"]});
     }
 
     async getOne(id: number) {
