@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards, Get, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { NFCTokenDTO, PasswordDTO } from './auth.dto';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
 @Controller("auth")
 export class AuthController {
@@ -10,29 +10,23 @@ export class AuthController {
     ) {}
 
     @UseGuards()
-    @ApiBody({
-        type: "string"
-    })
+    @ApiOperation({ summary: 'Вход по логину и паролю' })
     @Post("login")
     async login(@Body() dto: PasswordDTO) {
         return this.appService.login(dto);
     }
 
     @UseGuards()
-    @ApiBody({
-        type: "string"
-    })
+    @ApiOperation({ summary: 'Вход по токену и коду' })
     @Post("nfc-login")
     async loginNFC(@Body() dto: NFCTokenDTO) {
         return this.appService.loginNFC(dto);
     }
 
     @Get("hello")
+    @ApiOperation({ summary: 'Проверка работы токена из auth/login и auth/nfc-login' })
     @ApiBearerAuth()
-    @ApiBody({
-        type: "string"
-    })
     async hello(@Request() req: any) {
-        return req.user;
+        return `Hello, ${req.user}`;
     }
 }
