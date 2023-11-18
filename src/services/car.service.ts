@@ -6,7 +6,7 @@ import Task from 'src/entity/Task';
 import { TaskDTO } from './task.dto';
 
 @Injectable()
-export class TaskService {
+export class CarService {
     constructor(
         @InjectRepository(Task) private readonly repo: Repository<Task>,
         private jwtService: JwtService

@@ -1,11 +1,11 @@
 import { Body, Controller, Post, Get, Param, Delete} from '@nestjs/common';
-import { TaskService } from 'src/services/task.service';
 import { TaskDTO } from 'src/services/task.dto';
+import { CarService } from 'src/services/car.service';
 
-@Controller("task")
-export class TaskController {
+@Controller("car")
+export class CarController {
     constructor(
-        private readonly service: TaskService
+        private readonly service: CarService
     ) {}
 
     @Post()

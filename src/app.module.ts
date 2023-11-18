@@ -11,11 +11,21 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { CarService } from './services/car.service';
+import { TaskService } from './services/task.service';
+import { CarController } from './api/car.controller';
+import { TaskController } from './api/task.controller';
 
 @Module({
-    controllers: [AuthController],
+    controllers: [
+        AuthController,
+        CarController,
+        TaskController,
+    ],
     providers: [
         AuthService,
+        CarService,
+        TaskService,
         JwtStrategy,
         {
             provide: APP_GUARD,
