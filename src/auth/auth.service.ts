@@ -3,21 +3,19 @@ import UserPass from 'src/entity/UserPass';
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { NFCTokenDTO, PasswordDTO } from './auth.dto';
-import * as jwt from "jsonwebtoken";
 import UserTokenPass from 'src/entity/UserTokenPass';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(UserPass) private readonly userPass: Repository<UserPass>,
-        @InjectRepository(UserTokenPass) private readonly userTokenPass: Repository<UserTokenPass>
+        @InjectRepository(UserTokenPass) private readonly userTokenPass: Repository<UserTokenPass>,
+        private jwtService: JwtService
     ) {}
 
     private sign(userName: string): string {
-        return jwt.sign({ user: userName }, process.env.JWT_SECRET as string, {
-            algorithm: "HS256",
-            expiresIn: "16h",
-        });
+        return this.jwtService.sign({ user: userName });
     }
 
     async login(dto: PasswordDTO) {
