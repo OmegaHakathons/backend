@@ -7,3 +7,11 @@ export class PasswordDTO {
     @IsString()
     public password: string;
 }
+
+export class NFCTokenDTO {
+    @IsString()
+    public token: string;
+    // Пароль хранится в чистом виде, не делайте так в нормальных проектах
+    @IsString()
+    public code: string;
+}
