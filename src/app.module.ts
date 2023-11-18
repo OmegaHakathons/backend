@@ -16,34 +16,38 @@ import { TaskService } from './services/task.service';
 import { CarController } from './api/car.controller';
 import { TaskController } from './api/task.controller';
 
-@Module({
-    controllers: [
-        AuthController,
-        CarController,
-        TaskController,
-    ],
-    providers: [
-        AuthService,
-        CarService,
-        TaskService,
-        JwtStrategy,
-        {
-            provide: APP_GUARD,
-            useClass: JwtAuthGuard,
-        },
-    ],
-    imports: [
-        InitialDatabaseCreator,
-        TypeOrmModule.forRoot(getDS().options),
-        TypeOrmModule.forFeature(entityList),
-        PassportModule,
-        JwtModule.register({
-            secret:  process.env.JWT_SECRET,
-            signOptions: { 
-                algorithm: "HS256",
-                expiresIn: "16h",
+export const moduleMetadata = (): Parameters<typeof Module>[0] => {
+    return {
+        controllers: [
+            AuthController,
+            CarController,
+            TaskController,
+        ],
+        providers: [
+            AuthService,
+            CarService,
+            TaskService,
+            JwtStrategy,
+            {
+                provide: APP_GUARD,
+                useClass: JwtAuthGuard,
             },
-        }),
-    ],
-})
+        ],
+        imports: [
+            InitialDatabaseCreator,
+            TypeOrmModule.forRoot(getDS().options),
+            TypeOrmModule.forFeature(entityList),
+            PassportModule,
+            JwtModule.register({
+                secret:  process.env.JWT_SECRET,
+                signOptions: { 
+                    algorithm: "HS256",
+                    expiresIn: "16h",
+                },
+            }),
+        ],
+    };
+};
+
+@Module(moduleMetadata())
 export class AppModule {}

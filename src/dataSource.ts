@@ -18,7 +18,7 @@ export const getDS = (dbName?: string) => {
         entities: entityList,
         applicationName: "lk-form-api",
         migrationsRun: true,
-        migrationsTableName: "_migrations",
+        migrationsTableName: "migrations",
         ssl: {
             rejectUnauthorized: true,
             ca: readFileSync(process.env.PATH_TO_CRT as string)
