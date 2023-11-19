@@ -6,8 +6,6 @@ import entityList from './entity/_entities';
 import { InitialDatabaseCreator } from './migrations/0-InitialDatabaseCreator';
 import { AuthController } from './auth/auth.controlles';
 import { AuthService } from './auth/auth.service';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
@@ -31,15 +29,16 @@ export const moduleMetadata = (): Parameters<typeof Module>[0] => {
         ],
         providers: [
             JwtStrategy,
-            {
-                provide: APP_GUARD,
-                useClass: JwtAuthGuard,
-            },
+            // {
+            //     provide: APP_GUARD,
+            //     useClass: JwtAuthGuard,
+            // },
             AuthService,
             CarService,
             TaskService,
             AggregateService,
             UserDataService,
+            // FirebaseService,
         ],
         imports: [
             InitialDatabaseCreator,

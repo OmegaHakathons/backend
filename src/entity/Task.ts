@@ -22,10 +22,16 @@ export default class Task {
     public currentStep?: number;
     @ManyToOne(() => Car)
     public car: Car;
+    @Column()
+    public carId: number;
     @ManyToOne(() => UserData)
     public executor: UserData;
+    @Column()
+    public executorId: number;
     @ManyToOne(() => Aggregate)
     public aggregate: Aggregate;
+    @Column()
+    public aggregateId: number;
     @Column()
     public field: string;
     @Column()
