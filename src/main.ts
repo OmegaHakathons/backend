@@ -10,7 +10,10 @@ export default async function bootstrap(nestPort?: number, logger = true) {
     const app = await NestFactory.create(AppModule, options);
     app.useGlobalPipes(new ValidationPipe({whitelist: true}));
 
-    const config = new DocumentBuilder().addBearerAuth().build();
+    const config = new DocumentBuilder()
+        .setDescription("Заметка об Bearer Auth: Serverless Containers в Яндекс Облаке резервируют заголовок Authorization, из-за чего стандартные методы авторизации не работают. Временно была выключена авторизация для защищённых эндпоинтов.")
+        .addBearerAuth()
+        .build();
     const document = SwaggerModule.createDocument(app, config, {
         deepScanRoutes: true,
     });

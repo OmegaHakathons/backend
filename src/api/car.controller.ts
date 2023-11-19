@@ -1,7 +1,8 @@
 import { Body, Controller, Post, Get, Param, Delete, Put} from '@nestjs/common';
 import { CarService } from 'src/services/car.service';
 import { CarDTO } from 'src/services/car.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import Car from 'src/entity/Car';
 
 @ApiTags('Машины')
 @Controller("car")
@@ -17,12 +18,14 @@ export class CarController {
     }
 
     @Get()
+    @ApiResponse({type: Car, isArray: true})
     @ApiBearerAuth()
     async getMany() {
         return this.service.getMany();
     }
 
     @Get(":id")
+    @ApiResponse({type: Car})
     @ApiBearerAuth()
     async get(@Param("id") id: number){
         return this.service.getOne(id);

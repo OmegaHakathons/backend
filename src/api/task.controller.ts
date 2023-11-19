@@ -1,7 +1,8 @@
 import { Body, Controller, Post, Get, Param, Delete, Put, NotFoundException} from '@nestjs/common';
 import { TaskService } from 'src/services/task.service';
 import { TaskDTO } from 'src/services/task.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import Task from 'src/entity/Task';
 
 @ApiTags('Задачи')
 @Controller("task")
@@ -17,6 +18,7 @@ export class TaskController {
     }
 
     @Get()
+    @ApiResponse({type: Task, isArray: true})
     @ApiBearerAuth()
     async getMany() {
         return this.service.getMany();

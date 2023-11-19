@@ -1,7 +1,8 @@
 import { Body, Controller, Post, Get, Param, Delete, Put} from '@nestjs/common';
 import { CarDTO } from 'src/services/car.dto';
 import { AggregateService } from 'src/services/aggregate.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import Aggregate from 'src/entity/Aggregate';
 
 @ApiTags('Агрегаты') 
 @Controller("aggregate")
@@ -17,12 +18,14 @@ export class AggregateController {
     }
 
     @Get()
+    @ApiResponse({type: Aggregate, isArray: true})
     @ApiBearerAuth()
     async getMany() {
         return this.service.getMany();
     }
 
     @Get(":id")
+    @ApiResponse({type: Aggregate})
     @ApiBearerAuth()
     async get(@Param("id") id: number){
         return this.service.getOne(id);

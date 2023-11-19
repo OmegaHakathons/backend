@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Delete} from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import UserData from 'src/entity/UserData';
 import { UserDataService } from 'src/services/userData.service';
 
 @ApiTags('UserData') 
@@ -15,12 +16,14 @@ export class UserDataController {
     // }
 
     @Get()
+    @ApiResponse({type: UserData, isArray: true})
     @ApiBearerAuth()
     async getMany() {
         return this.service.getMany();
     }
 
     @Get(":id")
+    @ApiResponse({type: UserData})
     @ApiBearerAuth()
     async get(@Param("id") id: number){
         return this.service.getOne(id);
