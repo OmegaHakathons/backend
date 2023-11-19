@@ -19,11 +19,11 @@ export const getDS = (dbName?: string) => {
         applicationName: "lk-form-api",
         migrationsRun: true,
         migrationsTableName: "migrations",
-        ssl: {
+        ssl: process.env.DB_HOST !== "localhost" ? {
             rejectUnauthorized: true,
             ca: readFileSync(process.env.PATH_TO_CRT as string)
                 .toString(),
-        },
+        } : undefined,
     };
 
     return { options, ds: new DataSource(options) };

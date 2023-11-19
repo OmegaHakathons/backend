@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, Delete, Put} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Delete, Put, NotFoundException} from '@nestjs/common';
 import { TaskService } from 'src/services/task.service';
 import { TaskDTO } from 'src/services/task.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -25,7 +25,9 @@ export class TaskController {
     @Get(":id")
     @ApiBearerAuth()
     async get(@Param("id") id: number){
-        return this.service.getOne(id);
+        const a = await this.service.getOne(id);
+        if (a) return a;
+        throw new NotFoundException();
     }
 
     @Put(":id")

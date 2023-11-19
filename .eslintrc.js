@@ -48,7 +48,8 @@ module.exports = {
             files: ['./**/*{spec,test}.{ts,tsx}'],
             rules: {
                 "@typescript-eslint/no-explicit-any": "off",
-                "security/detect-object-injection": "off"
+                "security/detect-object-injection": "off",
+                "jest/no-disabled-tests": "off"
             }
         },
     ]
